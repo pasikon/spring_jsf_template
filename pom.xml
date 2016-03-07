@@ -13,6 +13,15 @@
         <spring.version>4.2.5.RELEASE</spring.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- Servlet -->
         <dependency>
@@ -89,19 +98,24 @@
             <artifactId>primefaces</artifactId>
             <version>5.3</version>
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.primefaces.themes</groupId>-->
+        <!--<artifactId>afterdark</artifactId>-->
+        <!--<version>1.0.10</version>-->
+        <!--</dependency>-->
 
         <!-- JSP Library -->
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>javax.servlet.jsp-api</artifactId>
-            <version>2.3.1</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>javax.servlet.jsp</groupId>-->
+        <!--<artifactId>javax.servlet.jsp-api</artifactId>-->
+        <!--<version>2.3.1</version>-->
+        <!--</dependency>-->
         <!-- JSTL Library -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.1.2</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>javax.servlet</groupId>-->
+        <!--<artifactId>jstl</artifactId>-->
+        <!--<version>1.1.2</version>-->
+        <!--</dependency>-->
 
 
         <!-- Hibernate library -->
@@ -127,13 +141,31 @@
             <version>1.4.191</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-</artifactId>
-            <version>8.0.9</version>
-            <scope>provided</scope>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>4.2.4.RELEASE</version>
         </dependency>
+
 
     </dependencies>
 
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.5.1</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                        <compilerArguments>
+                            <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                        </compilerArguments>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

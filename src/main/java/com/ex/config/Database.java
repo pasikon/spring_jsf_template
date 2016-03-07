@@ -1,4 +1,4 @@
-package config;
+package com.ex.config;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -22,7 +20,6 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-//@ComponentScan({ "com.websystique.springmvc.configuration" })
 //@PropertySource(value = { "classpath:application.properties" })
 public class Database {
 
@@ -30,7 +27,7 @@ public class Database {
     public DataSource dataSource() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         EmbeddedDatabase db = builder
-                .setType(EmbeddedDatabaseType.HSQL) //.H2 or .DERBY
+                .setType(EmbeddedDatabaseType.H2)
                 .build();
         return db;
     }
@@ -38,7 +35,7 @@ public class Database {
     @Bean
     public SessionFactory sessionFactory() {
         LocalSessionFactoryBuilder localSessionFactoryBuilder = new LocalSessionFactoryBuilder(dataSource());
-        localSessionFactoryBuilder.scanPackages("model.entities");
+        localSessionFactoryBuilder.scanPackages("com.ex.entities");
         localSessionFactoryBuilder.addProperties(hibernateProperties());
 
 
@@ -56,9 +53,9 @@ public class Database {
 
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", "");
+        //properties.put("hibernate.dialect", "");
         properties.put("hibernate.show_sql", Boolean.TRUE.toString());
-        /properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
+        properties.put("hibernate.format_sql", Boolean.TRUE.toString());
         return properties;
     }
 }
